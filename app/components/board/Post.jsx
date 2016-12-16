@@ -8,10 +8,6 @@ import style from './Post.scss';
 import icons from '../../constants/icons';
 import translate from '../../i18n/Translate';
 
-const canVote = (post, currentUser) =>
-    post.likes.indexOf(currentUser) === -1 &&
-    post.dislikes.indexOf(currentUser) === -1;
-
 const canEdit = (post, currentUser) => currentUser === post.user;
 
 const renderDelete = (post, currentUser, strings, onDelete) => {
@@ -31,23 +27,17 @@ const renderDelete = (post, currentUser, strings, onDelete) => {
 };
 
 const renderButton = (post, currentUser, name, icon, className, onClick) => {
-    const canUserVote = canVote(post, currentUser);
     const votes = post[name].length;
     const label = votes ? votes.toString() : '-';
-    const classNameFinal = classNames(className, canUserVote ? null : style.disabled);
-    const visible = canUserVote || votes > 0;
+    const classNameFinal = classNames(className, null);
 
-    if (!visible) {
-        return null;
-    }
     return (
         <Button
           icon={icon}
           label={label}
-          onClick={canUserVote ? onClick : noop}
-          raised={canUserVote}
+          onClick={onClick}
+          raised
           className={classNameFinal}
-          disabled={!canUserVote}
         />
     );
 };
