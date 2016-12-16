@@ -123,11 +123,9 @@ db().then(store => {
         if (post) {
             const array = data.like ? post.likes : post.dislikes;
 
-            if (array.indexOf(data.user) === -1) {
-                array.push(data.user);
-                persist(session);
-                sendToAll(socket, session.id, RECEIVE_LIKE, data);
-            }
+            array.push(data.user);
+            persist(session);
+            sendToAll(socket, session.id, RECEIVE_LIKE, data);
         }
     };
 

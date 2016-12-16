@@ -10,8 +10,7 @@ import translate from '../../i18n/Translate';
 
 const canVote = (post, currentUser) =>
     post.likes.indexOf(currentUser) === -1 &&
-    post.dislikes.indexOf(currentUser) === -1 &&
-    currentUser !== post.user;
+    post.dislikes.indexOf(currentUser) === -1;
 
 const canEdit = (post, currentUser) => currentUser === post.user;
 
