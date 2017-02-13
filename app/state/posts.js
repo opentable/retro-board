@@ -18,10 +18,20 @@ const postReducer = (state = {}, action) => {
     switch (action.type) {
     case LIKE_SUCCESS:
     case RECEIVE_LIKE: {
-        const array = action.payload.like ? 'likes' : 'dislikes';
+        if (action.payload.like) {
+            return {
+                ...state,
+                likes: state.likes.concat(action.payload.user)
+            };
+        }
+
+        const index = state.likes.indexOf(action.payload.user);
         return {
             ...state,
-            [array]: state[array].concat(action.payload.user)
+            likes: index > -1 ? [
+                ...state.likes.slice(0, index),
+                ...state.likes.slice(index + 1)
+            ] : state.likes
         };
     }
     case EDIT_POST:

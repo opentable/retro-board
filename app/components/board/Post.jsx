@@ -26,20 +26,38 @@ const renderDelete = (post, currentUser, strings, onDelete) => {
     return null;
 };
 
-const renderButton = (post, currentUser, name, icon, className, onClick) => {
-    const votes = post[name].length;
+const renderLike = (post, currentUser, onLike) => {
+    const votes = post.likes.length;
     const label = votes ? votes.toString() : '-';
-    const classNameFinal = classNames(className, null);
+    const classNameFinal = classNames(style.like, null);
 
     return (
         <Button
-          icon={icon}
+          icon={icons.thumb_up}
           label={label}
-          onClick={onClick}
+          onClick={ () => onLike(post) }
           raised
           className={classNameFinal}
         />
     );
+};
+
+const renderDislike = (post, currentUser, onDislike) => {
+    const votes = post.likes.indexOf(currentUser);
+    const classNameFinal = classNames(style.dislike, null);
+
+    if (votes >= 0) {
+        return (
+            <Button
+              icon={icons.thumb_down}
+              onClick={ () => onDislike(post) }
+              raised
+              className={classNameFinal}
+            />
+        );
+    }
+
+    return null;
 };
 
 const Post = ({ post, currentUser, onEdit, onLike, onUnlike, onDelete, strings }) => (
@@ -55,16 +73,8 @@ const Post = ({ post, currentUser, onEdit, onLike, onUnlike, onDelete, strings }
             </CardText>
             <CardActions>
                 <div className={style.actions}>
-                    { renderButton(post, currentUser,
-                        'likes',
-                        icons.thumb_up,
-                        style.like,
-                        () => onLike(post)) }
-                    { renderButton(post, currentUser,
-                        'dislikes',
-                        icons.thumb_down,
-                        style.dislike,
-                        () => onUnlike(post)) }
+                    { renderLike(post, currentUser, onLike) }
+                    { renderDislike(post, currentUser, onUnlike) }
                     { renderDelete(post, currentUser, strings, onDelete) }
                 </div>
             </CardActions>

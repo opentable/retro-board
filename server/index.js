@@ -121,9 +121,16 @@ db().then(store => {
     const like = (session, data, socket) => {
         const post = find(session.posts, p => p.id === data.post.id);
         if (post) {
-            const array = data.like ? post.likes : post.dislikes;
+            if (data.like) {
+                post.likes.push(data.user);
+            } else {
+                const index = post.likes.indexOf(data.user);
 
-            array.push(data.user);
+                post.likes = index > -1 ?
+                    post.likes.slice(0, index).concat(post.likes.slice(index + 1))
+                    : post.likes;
+            }
+
             persist(session);
             sendToAll(socket, session.id, RECEIVE_LIKE, data);
         }
