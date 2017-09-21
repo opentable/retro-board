@@ -4,15 +4,18 @@ This is a Retrospective Idea board, powering [retrospected.com](http://www.retro
 
 ![Retrospected.com](/content/screenshot-v4.png?raw=true "Retrospected.com")
 
+This project is both an actual product, and also a technology demo using the latest and greatest JavaScript libraries of the month.
+
 It features the following technologies:
 
 * [React](https://github.com/facebook/react)
 * [Redux](https://github.com/reactjs/redux)
+* [React Router 4](https://github.com/ReactTraining/react-router)
 * [Socket IO](http://socket.io)
-* [Webpack](https://github.com/webpack/webpack)
+* [Webpack 3](https://github.com/webpack/webpack) (See older versions for Webpack 1)
 * [Hot-reloading](https://webpack.github.io/docs/hot-module-replacement.html)
 * [Material UI design](https://www.google.com/design/spec/material-design/introduction.html)
-* [Modular CSS](https://github.com/css-modules/css-modules)
+* [CSS Modules](https://github.com/css-modules/css-modules)
 * [redux-saga](https://github.com/yelouafi/redux-saga)
 * [reselect](https://github.com/reactjs/reselect)
 * [Multilingual](https://stackoverflow.com/questions/33413880/react-redux-and-multilingual-internationalization-apps-architecture) / Internationalization
@@ -25,7 +28,8 @@ It features the following technologies:
 ## How to run for production (or to try it out)
 
 * Clone this repository
-* `npm i` to install the dependencies (Node 4+, NPM 3+)
+* Switch to the `master` branch (the default is `develop` which might not be stable)
+* `yarn` to install the dependencies (or `npm i`) (Node 4+, NPM 3+)
 * `npm run build` to build everything (client and server)
 * `npm start` to run the server on port 8080
 * Open your browser on [http://localhost:8080](http://localhost:8080)
@@ -34,7 +38,7 @@ It features the following technologies:
 ## How to run for development
 
 * Clone this repository
-* `npm i` to install the dependencies (Node 4+, NPM 3+)
+* `yarn` to install the dependencies (or `npm i`) (Node 4+, NPM 3+)
 * Open another terminal (you need two of those)
 * `npm run start-server` on the first terminal to start the server bit
 * `npm run start-ui` on the second terminal, to run live webpack with hot-reload
@@ -44,14 +48,14 @@ It features the following technologies:
 ## How to run the tests
 
 * Clone this repository
-* `npm i` to install the dependencies (Node 4+, NPM 3+)
+* `yarn` to install the dependencies (or `npm i`) (Node 4+, NPM 3+)
 * `npm test` to run the tests
 * **or** `npm run test-watch` to run the tests every time you change a file
 
 
 ## How to use Google Analytics
 
-By default, Google Analytics is deactivated (it doesn't even get build into the bundle).
+By default, Google Analytics is deactivated (it doesn't even get built into the bundle).
 
 To enable it, create a configuration file by copying `/config/configuration_template.json` to `/config/configuration.json`, and set it up by pasting your GA tracking ID, and setting the other setting to true, then rebuild.
 
@@ -62,14 +66,8 @@ Note: Google Analytics only works when using the production webpack config.
 
 By default, the database engine is NeDB, an in-process database with no external dependencies (i.e. no database to install on your system).
 
-If you want to use a more "production-ready" database such as MongoDB, create the configuration file as explained above and set `DB_Use_Mongo` to `true`. You will of course need an instance of MongoDB running on your system for that to work.
+If you want to use a more "production-ready" database such as MongoDB, create the configuration file as explained above in the Google Analytics section and set `DB_Use_Mongo` to `true`. You will of course need an instance of MongoDB running on your system for that to work.
 
-
-## How to enable SocketIO anti-spam
-
-It's very easy to abuse a SocketIO connection, by running some code in your console and doing `io.emit('spam')` in an infinite loop to create a DOS attack on the server.
-
-To enable a rate-limiting fix for this attack, set `Use_Anti_Spam` to `true` in the config file.
 
 ## How to debug
 
@@ -94,11 +92,26 @@ To enable a rate-limiting fix for this attack, set `Use_Anti_Spam` to `true` in 
 ## Roadmap
 
 * Add more languages
-* Unit tests
 * GraphQL
-* Webpack 2
 
 ## Versions history
+
+### Version 0.10.0
+
+* Wepack 3 (for Webpack 2, look at version 0.9.0)
+* Converting entire project to 2-space indentation
+* Upgrade other dependencies
+* Polish Translation (thanks [@olaf-cichocki](https://github.com/olaf-cichocki))
+* Arabic Translation (thanks [@Meshredded](https://github.com/Meshredded))
+* Improved the loading screen
+
+### Version 0.9.0
+
+* Webpack 2 (for Webpack 1, look at version 0.8.1 and older)
+* React 15.5 (which needs the new `prop-types` module, among other things)
+* React Router 4 (completely different way of doing the routing)
+* Move the structure of the project to a modular structure
+* Upgraded all the other dependencies to the latest versions, except `react-toolbox`
 
 ### Version 0.8.1
 
@@ -107,7 +120,7 @@ To enable a rate-limiting fix for this attack, set `Use_Anti_Spam` to `true` in 
 ### Version 0.8.0
 
 * Using [redux-saga-testing](https://github.com/antoinejaussoin/redux-saga-testing) to test sagas
-* Chinese (Traditional and Simplified) Translation (Thanks @aqutw)
+* Chinese (Traditional and Simplified) Translation (Thanks [@aqutw](https://github.com/aqutw))
 * Using [Yarn](https://yarnpkg.com/en/)
 * Updating dependencies
 * Fixing some Spanish translation mistakes (Thanks @MrPolymath)
@@ -116,8 +129,8 @@ To enable a rate-limiting fix for this attack, set `Use_Anti_Spam` to `true` in 
 ### Version 0.7.0
 
 * Good test coverage, using Jest
-* Russian Translation (Thanks @vectart)
-* Spanish Translation (Thanks @andresin87)
+* Russian Translation (Thanks [@vectart](https://github.com/vectart))
+* Spanish Translation (Thanks [@andresin87](https://github.com/andresin87))
 * Replacing PNG flags by SVG/CSS versions
 * Using `react-hot-loader` 3.0.0 (beta2) for Hot reloading
 * Fixing a few mobile/responsive issues
@@ -147,7 +160,7 @@ To enable a rate-limiting fix for this attack, set `Use_Anti_Spam` to `true` in 
 
 ### Version 0.5.0
 
-* Adding the possibility to join a previously joined session quickly (Thanks @Sonaryr)
+* Adding the possibility to join a previously joined session quickly (Thanks [@Sonaryr](https://github.com/Sonaryr))
 * Performance improvement on title edit (Also thanks to @Sonaryr)
 * New Logo!
 * Added Favicons
@@ -168,7 +181,7 @@ To enable a rate-limiting fix for this attack, set `Use_Anti_Spam` to `true` in 
 * Improving performance by using `shouldComponentUpdate` via a custom base [Component](app/Component.jsx)
 * Updated to the brand new React 15
 * Improving Windows support by allowing Windows users to use the same commands as \*nix users
-* Internationalisation: added Dutch to the list of supported languages
+* Internationalisation: added Dutch to the list of supported languages (Thanks [@Sonaryr](https://github.com/Sonaryr))
 
 ### Version 0.3.0
 
@@ -177,7 +190,7 @@ To enable a rate-limiting fix for this attack, set `Use_Anti_Spam` to `true` in 
 * Change to the Like / Unlike logic: like and unlikes counts are separated
 * Adding ES7 decorators, more readable than the previous curry-ed functions
 * Better support for Windows
-* Internationalisation: added Brazilian Portuguese to the list of supported languages
+* Internationalisation: added Brazilian Portuguese to the list of supported languages (Thanks [@renancouto](https://github.com/renancouto))
 
 ### Version 0.2.0
 
@@ -187,7 +200,7 @@ To enable a rate-limiting fix for this attack, set `Use_Anti_Spam` to `true` in 
 * Ability to logout, and to leave a session
 * Improve the reliability of the clients list (currently connected users)
 * Fix issues when the web fonts can't load (firewall blocking for example)
-* Internationalisation: support for English, French and Hungarian
+* Internationalisation: support for English, French and Hungarian (Thanks [@iaretiga](https://github.com/iaretiga))
 
 ### Version 0.1.1
 
@@ -228,6 +241,8 @@ Many thanks to the following contributors who helped translating the app:
 * Russian: [@vectart](https://github.com/vectart)
 * Spanish: [@andresin87](https://github.com/andresin87)
 * Chinese: [@aqutw](https://github.com/aqutw)
+* Polish: [@olaf-cichocki](https://github.com/olaf-cichocki)
+* Arabic: [@Meshredded](https://github.com/Meshredded)
 
 If you are a native speaker of another language, please don't hesitate to make a pull request to add a translation.
 I'm especially looking for a German translation.

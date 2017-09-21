@@ -4,8 +4,10 @@
     { "value": "fr", "iso": "fr", "name": "Français", "englishName": "French" },
     { "value": "hu", "iso": "hu", "name": "Magyar", "englishName": "Hungarian" },
     { "value": "nl", "iso": "nl", "name": "Nederlands", "englishName": "Dutch" },
+    { "value": "pl", "iso": "pl", "name": "Polski", "englishName": "Polish" },
     { "value": "ptbr", "iso": "br", "name": "Português Brasileiro", "englishName": "Brazilian Portuguese" },
     { "value": "ru", "iso": "ru", "name": "Русский", "englishName": "Russian" },
     { "value": "zhtw", "iso": "tw", "name": "繁中", "englishName": "Traditional Chinese" },
-    { "value": "zhcn", "iso": "cn", "name": "簡中", "englishName": "Simplified Chinese" }
+    { "value": "zhcn", "iso": "cn", "name": "簡中", "englishName": "Simplified Chinese" },
+    { "value": "ar", "iso": "ae", "name": "عربي", "englishName": "Arabic" }
 ]

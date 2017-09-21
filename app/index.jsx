@@ -9,11 +9,15 @@ import App from './app';
 
 const rootElement = document.getElementById('content');
 
-render(<AppContainer><App /></AppContainer>, rootElement);
+if (rootElement) {
+  document.body.style.backgroundColor = 'inherit';
 
-if (module.hot) {
+  render(<AppContainer><App /></AppContainer>, rootElement);
+
+  if (module.hot) {
     module.hot.accept('./app', () => {
-        const NextApp = require('./app').default;
-        render(<AppContainer><NextApp /></AppContainer>, rootElement);
+      const NextApp = require('./app').default;
+      render(<AppContainer><NextApp /></AppContainer>, rootElement);
     });
+  }
 }
