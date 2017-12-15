@@ -36,7 +36,7 @@ const renderLike = (post, currentUser, strings, onLike) => {
     acc[current] = acc[current] + 1 || 1;
     return acc;
   }, {});
-  console.log(strings);
+
   let tooltipContent;
   if (votes === 0) {
     tooltipContent = (
