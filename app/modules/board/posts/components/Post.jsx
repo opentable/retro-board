@@ -3,6 +3,7 @@ import React from 'react';
 import noop from 'lodash/noop';
 import { Card, CardText, CardActions } from 'react-toolbox/lib/card';
 import Button from 'react-toolbox/lib/button';
+import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames';
 import EditableLabel from 'components/EditableLabel';
 import icons from 'constants/icons';
@@ -27,19 +28,54 @@ const renderDelete = (post, currentUser, strings, onDelete) => {
   return null;
 };
 
-const renderLike = (post, currentUser, onLike) => {
+const renderLike = (post, currentUser, strings, onLike) => {
   const votes = post.likes.length;
   const label = votes ? votes.toString() : '-';
   const classNameFinal = classNames(style.like, null);
+  const likes = post.likes.reduce((acc, current) => {
+    acc[current] = acc[current] + 1 || 1;
+    return acc;
+  }, {});
+  console.log(strings);
+  let tooltipContent;
+  if (votes === 0) {
+    tooltipContent = (
+      <p>{strings.notLiked}</p>
+    );
+  } else {
+    tooltipContent = (
+      <div>
+        <p>{strings.likedBy}</p>
+        <ul>
+          { Object.getOwnPropertyNames(likes).map((likedBy) => (
+            <li key={`${post.id}_${likedBy}`}>{`${likedBy} (${likes[likedBy]})`}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 
   return (
-    <Button
-      icon={icons.thumb_up}
-      label={label}
-      onClick={ () => onLike(post) }
-      raised
-      className={classNameFinal}
-    />
+    <span>
+      <Button
+        icon={icons.thumb_up}
+        label={label}
+        onClick={ () => onLike(post) }
+        raised
+        className={classNameFinal}
+        data-tip
+        data-for={`${post.id}_likedByTooltip`}
+      />
+      <ReactTooltip
+        id={`${post.id}_likedByTooltip`}
+        key={`${post.id}_${votes}`}
+        effect="solid"
+        place="right"
+        className={style.tooltip}
+      >
+        {tooltipContent}
+      </ReactTooltip>
+    </span>
   );
 };
 
@@ -74,7 +110,7 @@ const Post = ({ post, currentUser, onEdit, onLike, onUnlike, onDelete, strings }
       </CardText>
       <CardActions>
         <div className={style.actions}>
-          { renderLike(post, currentUser, onLike) }
+          { renderLike(post, currentUser, strings, onLike) }
           { renderDislike(post, currentUser, onUnlike) }
           { renderDelete(post, currentUser, strings, onDelete) }
         </div>
@@ -102,7 +138,9 @@ Post.defaultProps = {
   onEdit: noop,
   strings: {
     deleteButton: 'Delete',
-    noContent: '(This post has no content)'
+    likedBy: 'Liked by:',
+    noContent: '(This post has no content)',
+    notLiked: 'Not liked'
   }
 };
 
