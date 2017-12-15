@@ -14,8 +14,10 @@ export default {
   Post: {
     vote: 'głos',
     votes: 'głosów',
+    likedBy: 'Polubione przez:',
     deleteButton: 'Usuń',
-    noContent: '(Ten wpis nie ma zawartości)'
+    noContent: '(Ten wpis nie ma zawartości)',
+    notLiked: 'Nikt nie lubi tego wpisu'
   },
   PostBoard: {
     notWellQuestion: 'Co można poprawić?',
