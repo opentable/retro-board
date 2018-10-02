@@ -16,7 +16,6 @@ const stateToProps = state => ({
 const Post = ({ post }) => (
   <li key={post.id}>
     <span className={style.like}>+{post.likes.length}</span>&#9;
-    <span className={style.dislike}>-{post.dislikes.length}</span>&#9;
     {post.content}
   </li>
 );
