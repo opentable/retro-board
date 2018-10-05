@@ -16,11 +16,11 @@ const renderDelete = (post, currentUser, strings, onDelete) => {
   if (currentUser === post.user) {
     return (
       <Button
-        icon={ icons.delete_forever }
-        label={ strings.deleteButton }
+        icon={icons.delete_forever}
+        label={strings.deleteButton}
         raised
-        className={ style.deleteButton }
-        onClick={ () => onDelete(post) }
+        className={style.deleteButton}
+        onClick={() => onDelete(post)}
       />
     );
   }
@@ -112,7 +112,7 @@ const Post = ({ post, currentUser, onEdit, onLike, onUnlike, onDelete, strings }
         <div className={style.actions}>
           { renderLike(post, currentUser, strings, onLike) }
           { renderDislike(post, currentUser, onUnlike) }
-          { renderDelete(post, currentUser, strings, onDelete) }
+          {renderDelete(post, currentUser, strings, onDelete)}
         </div>
       </CardActions>
     </Card>
@@ -126,7 +126,7 @@ Post.propTypes = {
   onLike: PropTypes.func,
   onUnlike: PropTypes.func,
   onEdit: PropTypes.func,
-  strings: PropTypes.object
+  strings: PropTypes.object,
 };
 
 Post.defaultProps = {
@@ -141,7 +141,7 @@ Post.defaultProps = {
     likedBy: 'Liked by:',
     noContent: '(This post has no content)',
     notLiked: 'Not liked'
-  }
+  },
 };
 
 export default translate('Post')(Post);

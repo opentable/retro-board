@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   user,
   configuration,
   app,
-  routing: routerReducer
+  routing: routerReducer,
 });
 
 export default rootReducer;

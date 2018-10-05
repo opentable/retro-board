@@ -4,7 +4,7 @@ import session from './session/state';
 
 const reducer = combineReducers({
   posts,
-  session
+  session,
 });
 
 export default reducer;

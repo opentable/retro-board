@@ -3,64 +3,61 @@ export default {
     subtitle: 'Dobry sposób by ponarzekać zgodnie z duchem Agile',
     logout: 'Wyloguj',
     leave: 'Wyjdź',
-    summaryMode: 'Tryb Podsumowania'
+    summaryMode: 'Tryb Podsumowania',
   },
   LanguagePicker: {
-    header: 'Wybierz język'
+    header: 'Wybierz język',
   },
   Main: {
-    hint: 'Możesz zaprosić inne osoby do tej sesji wysyłając im URL'
+    hint: 'Możesz zaprosić inne osoby do tej sesji wysyłając im URL',
   },
   Post: {
     vote: 'głos',
     votes: 'głosów',
-    likedBy: 'Polubione przez:',
     deleteButton: 'Usuń',
     noContent: '(Ten wpis nie ma zawartości)',
-    notLiked: 'Nikt nie lubi tego wpisu'
   },
   PostBoard: {
     notWellQuestion: 'Co można poprawić?',
     wellQuestion: 'Co poszło dobrze?',
-    ideasQuestion: 'Wspaniały pomysł którym chcesz się podzielić?'
+    ideasQuestion: 'Wspaniały pomysł którym chcesz się podzielić?',
   },
   Clients: {
-    header: 'Są dziś z nami:'
+    header: 'Są dziś z nami:',
   },
   Join: {
     welcome: 'Witaj w Retrospected',
     standardTab: {
       header: 'Stwórz',
       text: 'Kliknij poniżej i zacznij retrospektywę:',
-      button: 'Stwórz nową sesję'
+      button: 'Stwórz nową sesję',
     },
-    advancedTab: {
+    optionsTab: {
       header: 'Zaawansowane',
       input: 'Imię',
-      button: 'Stwórz custom session'
+      button: 'Stwórz custom session',
     },
     previousTab: {
       header: 'Poprzednie',
-      rejoinButton: 'Dołącz ponownie'
-    }
+      rejoinButton: 'Dołącz ponownie',
+    },
   },
   Login: {
     namePlaceholder: 'Kim dokładnie jesteś? Wprowadź tu swoje imię',
-    buttonLabel: 'Zacznijmy'
+    buttonLabel: 'Zacznijmy',
   },
   SummaryBoard: {
-    noPosts: 'Nie ma wpisów do wyświetlenia'
+    noPosts: 'Nie ma wpisów do wyświetlenia',
   },
   SessionName: {
-    defaultSessionName: 'Moja Retrospektywa'
+    defaultSessionName: 'Moja Retrospektywa',
   },
   Invite: {
     inviteButton: 'Zaproś',
     dialog: {
       title: 'Zaproś ludzi do swojej retrospektywy',
-      text: 'By zaprosić ludzi do swojej retrospektywy, po prostu wyślij im ' +
-                  'następujący URL',
-      copyButton: 'Skopiuj URL do Schowka'
-    }
-  }
+      text: 'By zaprosić ludzi do swojej retrospektywy, po prostu wyślij im ' + 'następujący URL',
+      copyButton: 'Skopiuj URL do Schowka',
+    },
+  },
 };

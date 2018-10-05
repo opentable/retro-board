@@ -6,7 +6,7 @@ import {
   getIdeasPosts,
   getSortedNotWellPosts,
   getSortedWellPosts,
-  getSortedIdeasPosts
+  getSortedIdeasPosts,
 } from '../selectors';
 
 const state = getState();

@@ -9,7 +9,7 @@ class EnterInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
     };
   }
 
@@ -40,14 +40,14 @@ EnterInput.propTypes = {
   onEnter: PropTypes.func,
   icon: PropTypes.string,
   placeholder: PropTypes.string,
-  maxLength: PropTypes.number
+  maxLength: PropTypes.number,
 };
 
 EnterInput.defaultProps = {
   onEnter: noop,
   icon: 'add',
   placeholder: 'Type something',
-  maxLength: null
+  maxLength: null,
 };
 
 export default EnterInput;

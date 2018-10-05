@@ -6,18 +6,14 @@ import shortid from 'shortid';
 import moment from 'moment';
 import { getCurrentUser } from 'modules/user/selectors';
 import { getSessionId } from '../selectors';
-import { onCreateSession,
+import {
+  onCreateSession,
   storeSessionToLocalStorage,
   doLoadPreviousSessions,
   onRenameSession,
-  onAutoJoin
+  onAutoJoin,
 } from '../sagas';
-import { createSessionSuccess,
-  renameSession,
-  joinSession,
-  receiveClientList,
-  loadPreviousSessions
-} from '../state';
+import { createSessionSuccess, renameSession, joinSession, receiveClientList, loadPreviousSessions } from '../state';
 
 jest.mock('shortid');
 
@@ -25,11 +21,9 @@ const previousSessions = {
   Marcel: [
     { id: '1', name: 'Retro 1', lastJoin: moment('2014-04-19').unix() },
     { id: '2', name: 'Retro 2', lastJoin: moment('1952-04-24').unix() },
-    { id: '3', name: 'Retro 3', lastJoin: moment('1982-11-01').unix() }
+    { id: '3', name: 'Retro 3', lastJoin: moment('1982-11-01').unix() },
   ],
-  Bob: [
-    { id: '4', name: 'Retro 4', lastJoin: moment('1983-04-19').unix() }
-  ]
+  Bob: [{ id: '4', name: 'Retro 4', lastJoin: moment('1983-04-19').unix() }],
 };
 
 describe('Sagas - session', () => {
@@ -85,11 +79,15 @@ describe('Sagas - session', () => {
     });
 
     it('and then load these sessions in the state', result => {
-      expect(result).toEqual(put(loadPreviousSessions([
-        { id: '1', name: 'Retro 1', lastJoin: moment('2014-04-19').unix() },
-        { id: '2', name: 'Retro 2', lastJoin: moment('1952-04-24').unix() },
-        { id: '3', name: 'Retro 3', lastJoin: moment('1982-11-01').unix() }
-      ])));
+      expect(result).toEqual(
+        put(
+          loadPreviousSessions([
+            { id: '1', name: 'Retro 1', lastJoin: moment('2014-04-19').unix() },
+            { id: '2', name: 'Retro 2', lastJoin: moment('1952-04-24').unix() },
+            { id: '3', name: 'Retro 3', lastJoin: moment('1982-11-01').unix() },
+          ]),
+        ),
+      );
     });
   });
 
@@ -134,11 +132,19 @@ describe('Sagas - session', () => {
     });
 
     it('and then load these sessions in the state', result => {
-      expect(result).toEqual(put(loadPreviousSessions([
-        { id: '1', name: 'Retro 1', lastJoin: moment('2014-04-19').unix() },
-        { id: '2', name: 'My New Name', lastJoin: moment('1952-04-24').unix() },
-        { id: '3', name: 'Retro 3', lastJoin: moment('1982-11-01').unix() }
-      ])));
+      expect(result).toEqual(
+        put(
+          loadPreviousSessions([
+            { id: '1', name: 'Retro 1', lastJoin: moment('2014-04-19').unix() },
+            {
+              id: '2',
+              name: 'My New Name',
+              lastJoin: moment('1952-04-24').unix(),
+            },
+            { id: '3', name: 'Retro 3', lastJoin: moment('1982-11-01').unix() },
+          ]),
+        ),
+      );
     });
   });
 

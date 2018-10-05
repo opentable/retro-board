@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import noop from 'lodash/noop';
 import flow from 'lodash/flow';
 import Button from 'react-toolbox/lib/button';
-import { Card, CardMedia, CardText } from 'react-toolbox/lib/card';
+import { Card, CardMedia, CardText, CardTitle } from 'react-toolbox/lib/card';
 import { List } from 'react-toolbox/lib/list';
-import { Tab, Tabs } from 'react-toolbox';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { createSession } from 'modules/board/session/state';
@@ -17,136 +16,90 @@ import { getSavedSessionsByDate } from 'modules/board/session/selectors';
 import SessionTile from 'components/SessionTile';
 import style from './index.scss';
 
-
 const stateToProps = state => ({
-  previousSessions: getSavedSessionsByDate(state)
+  previousSessions: getSavedSessionsByDate(state),
 });
 
 const actionsToProps = dispatch => ({
-  createSession: () => dispatch(createSession()),
-  goToSession: session => dispatch(push(`/session/${session.id}`))
+  create: () => dispatch(createSession()),
+  goToSession: session => dispatch(push(`/session/${session.id}`)),
 });
 
-class Join extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { tabIndex: 0, customSessionName: '' };
-  }
-
-  renderTabs() {
-    const { previousSessions } = this.props;
-    if (previousSessions.length) {
-      return [
-        this.renderStandardTab(),
-        this.renderPreviousSessionsTab(),
-        this.renderAdvancedTab()
-      ];
-    }
-    return [this.renderStandardTab(), this.renderAdvancedTab()];
-  }
-
-  renderStandardTab() {
-    const { strings } = this.props;
-    return (
-      <Tab label={ strings.standardTab.header } key="standard">
-        <h5>{ strings.welcome }</h5><br />
-        { strings.standardTab.text }<br /><br />
-        <Button
-          label={ strings.standardTab.button }
-          accent
-          raised
-          onClick={ this.props.createSession }
+const Join = ({ strings, previousSessions, goToSession, create }) => (
+  <div style={{ padding: 20 }}>
+    <Card raised className={style.join}>
+      <CardMedia style={{ backgroundColor: '#EEE' }}>
+        <img
+          alt="Background image"
+          src={backgroundImage}
+          style={{ objectFit: 'contain', width: '100%', backgroundSize: 'contain', maxHeight: 150 }}
+          role="presentation"
         />
-      </Tab>
-    );
-  }
+      </CardMedia>
+    </Card>
 
-  renderPreviousSessionsTab() {
-    const { strings, previousSessions, goToSession } = this.props;
-    return (
-      <Tab label={ strings.previousTab.header } key="previous">
+    <Card>
+      <CardTitle title={strings.welcome} subtitle={strings.standardTab.text} />
+      <CardText className={style.create}>
+        <Button label={strings.standardTab.button} accent raised onClick={create} />
+      </CardText>
+    </Card>
+
+    <Card>
+      <CardTitle title={strings.previousTab.header} />
+      <CardText>
         <List selectable ripple>
-          { previousSessions.map(session => (
-            <SessionTile
-              key={session.id}
-              session={session}
-              onClick={() => goToSession(session)}
-            />
+          {previousSessions.map(session => (
+            <SessionTile key={session.id} session={session} onClick={() => goToSession(session)} />
           ))}
         </List>
-      </Tab>
-    );
-  }
+      </CardText>
+    </Card>
 
-  renderAdvancedTab() {
-    const { strings } = this.props;
-    return (
-      <Tab label={ strings.advancedTab.header } key="advanced">
-        <div style={{ maxWidth: 200 }}>
-          <LanguagePicker />
-          <LogoutButton />
-        </div>
-      </Tab>
-    );
-  }
-
-  render() {
-    return (
-      <div style={{ padding: 20 }}>
-        <Card raised className={style.join}>
-          <CardMedia style={{ backgroundColor: '#EEE' }}>
-            <img
-              alt="Background image"
-              src={ backgroundImage }
-              style={{ objectFit: 'contain', width: '100%', backgroundSize: 'contain', maxHeight: 150 }}
-              role="presentation"
-            />
-          </CardMedia>
-          <CardText>
-            <Tabs
-              index={this.state.tabIndex}
-              onChange={tabIndex => this.setState({ tabIndex })}
-            >
-              { this.renderTabs() }
-            </Tabs>
-          </CardText>
-        </Card>
-      </div>
-    );
-  }
-}
+    <Card>
+      <CardTitle title={strings.optionsTab.header} />
+      <CardText className={style.options}>
+        <LanguagePicker />
+        <LogoutButton />
+      </CardText>
+    </Card>
+  </div>
+);
 
 Join.propTypes = {
   previousSessions: PropTypes.array,
-  createSession: PropTypes.func,
+  create: PropTypes.func,
   goToSession: PropTypes.func,
-  strings: PropTypes.object
+  strings: PropTypes.object,
 };
 
 Join.defaultProps = {
   previousSessions: [],
-  createSession: noop,
+  create: noop,
   goToSession: noop,
   strings: {
     welcome: 'Welcome to Retrospected',
     standardTab: {
       header: 'Create a Session',
       text: 'Click below and start retrospecting:',
-      button: 'Create a new session'
+      button: 'Create a new session',
     },
-    advancedTab: {
-      header: 'Advanced'
+    optionsTab: {
+      header: 'Options',
     },
     previousTab: {
       header: 'Previous sessions',
-      rejoinButton: 'Rejoin'
-    }
-  }
+      rejoinButton: 'Rejoin',
+    },
+  },
 };
 
 const decorators = flow([
-  connect(stateToProps, actionsToProps),
-  translate('Join')
+  connect(
+    stateToProps,
+    actionsToProps,
+  ),
+  translate('Join'),
 ]);
 
 export default decorators(Join);

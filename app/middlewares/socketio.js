@@ -8,13 +8,15 @@ import {
   LIKE_SUCCESS,
   RECEIVE_LIKE,
   EDIT_POST,
-  RECEIVE_EDIT_POST } from 'modules/board/posts/state';
+  RECEIVE_EDIT_POST,
+} from 'modules/board/posts/state';
 import {
   JOIN_SESSION,
   LEAVE_SESSION,
   RECEIVE_CLIENT_LIST,
   RENAME_SESSION,
-  RECEIVE_SESSION_NAME } from 'modules/board/session/state';
+  RECEIVE_SESSION_NAME,
+} from 'modules/board/session/state';
 import { LOGIN_SUCCESS } from 'modules/user/state';
 
 let socket = null;
@@ -36,7 +38,7 @@ export const init = store => {
     RECEIVE_LIKE,
     RECEIVE_CLIENT_LIST,
     RECEIVE_SESSION_NAME,
-    RECEIVE_EDIT_POST
+    RECEIVE_EDIT_POST,
   ];
 
   actions.forEach(action => {
@@ -58,7 +60,7 @@ export const socketIoMiddleware = store => next => action => {
     LOGIN_SUCCESS,
     LEAVE_SESSION,
     RENAME_SESSION,
-    EDIT_POST
+    EDIT_POST,
   ];
 
   if (actions.indexOf(action.type) > -1) {
@@ -66,7 +68,7 @@ export const socketIoMiddleware = store => next => action => {
     const sessionId = state.board.session.id;
     socket.emit(action.type, {
       sessionId,
-      payload: action.payload
+      payload: action.payload,
     });
   }
 

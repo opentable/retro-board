@@ -16,7 +16,7 @@ const stateToProps = state => ({
   currentUser: getCurrentUser(state),
   wellPosts: getWellPosts(state),
   notWellPosts: getNotWellPosts(state),
-  ideasPosts: getIdeasPosts(state)
+  ideasPosts: getIdeasPosts(state),
 });
 
 const actionsToProps = dispatch => ({
@@ -24,7 +24,7 @@ const actionsToProps = dispatch => ({
   deletePost: post => dispatch(deletePost(post)),
   like: post => dispatch(like(post)),
   unlike: post => dispatch(unlike(post)),
-  edit: (post, content) => dispatch(editPost(post, content))
+  edit: (post, content) => dispatch(editPost(post, content)),
 });
 
 class PostBoard extends Component {
@@ -35,10 +35,7 @@ class PostBoard extends Component {
 
   renderColumn(postType) {
     return (
-      <div
-        className={classNames(style.column, style[postType.type], 'col-4-12')}
-        key={postType.type}
-      >
+      <div className={classNames(style.column, style[postType.type], 'col-4-12')} key={postType.type}>
         <PostColumn
           currentUser={this.props.currentUser}
           posts={postType.posts}
@@ -57,28 +54,28 @@ class PostBoard extends Component {
 
   render() {
     const { strings, wellPosts, notWellPosts, ideasPosts } = this.props;
-    const types = [{
-      type: 'well',
-      question: strings.wellQuestion,
-      icon: icons.sentiment_very_satisfied,
-      posts: wellPosts
-    }, {
-      type: 'notWell',
-      question: strings.notWellQuestion,
-      icon: icons.sentiment_very_dissatisfied,
-      posts: notWellPosts
-    }, {
-      type: 'ideas',
-      question: strings.ideasQuestion,
-      icon: icons.lightbulb_outline,
-      posts: ideasPosts
-    }];
+    const types = [
+      {
+        type: 'well',
+        question: strings.wellQuestion,
+        icon: icons.sentiment_very_satisfied,
+        posts: wellPosts,
+      },
+      {
+        type: 'notWell',
+        question: strings.notWellQuestion,
+        icon: icons.sentiment_very_dissatisfied,
+        posts: notWellPosts,
+      },
+      {
+        type: 'ideas',
+        question: strings.ideasQuestion,
+        icon: icons.lightbulb_outline,
+        posts: ideasPosts,
+      },
+    ];
 
-    return (
-      <div className={classNames(style.board, 'grid')}>
-        { types.map(this.renderColumn) }
-      </div>
-    );
+    return <div className={classNames(style.board, 'grid')}>{types.map(this.renderColumn)}</div>;
   }
 }
 
@@ -92,7 +89,7 @@ PostBoard.propTypes = {
   strings: PropTypes.object,
   like: PropTypes.func,
   unlike: PropTypes.func,
-  edit: PropTypes.func
+  edit: PropTypes.func,
 };
 
 PostBoard.defaultProps = {
@@ -108,13 +105,16 @@ PostBoard.defaultProps = {
   strings: {
     notWellQuestion: 'What could be improved?',
     wellQuestion: 'What went well?',
-    ideasQuestion: 'A brilliant idea to share?'
-  }
+    ideasQuestion: 'A brilliant idea to share?',
+  },
 };
 
 const decorators = flow([
-  connect(stateToProps, actionsToProps),
-  translate('PostBoard')
+  connect(
+    stateToProps,
+    actionsToProps,
+  ),
+  translate('PostBoard'),
 ]);
 
 export default decorators(PostBoard);

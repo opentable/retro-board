@@ -22,14 +22,18 @@ describe('Sagas - posts', () => {
     });
 
     it('then call the add post success action', result => {
-      expect(result).toEqual(put(addPostSuccess({
-        id: 'AA-BB-CC',
-        postType: 'well',
-        content: 'Hello You',
-        user: 'Antoine',
-        likes: [],
-        dislikes: []
-      })));
+      expect(result).toEqual(
+        put(
+          addPostSuccess({
+            id: 'AA-BB-CC',
+            postType: 'well',
+            content: 'Hello You',
+            user: 'Antoine',
+            likes: [],
+            dislikes: [],
+          }),
+        ),
+      );
     });
   });
 
@@ -42,11 +46,15 @@ describe('Sagas - posts', () => {
     });
 
     it('then call the like success action', result => {
-      expect(result).toEqual(put(likeSuccess({
-        post: { id: 123 },
-        like: true,
-        user: 'Danièle'
-      })));
+      expect(result).toEqual(
+        put(
+          likeSuccess({
+            post: { id: 123 },
+            like: true,
+            user: 'Danièle',
+          }),
+        ),
+      );
     });
   });
 });

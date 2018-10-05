@@ -12,18 +12,15 @@ import { closeDrawer } from './state';
 import { isDrawerOpen } from './selectors';
 
 const stateToProps = state => ({
-  open: isDrawerOpen(state)
+  open: isDrawerOpen(state),
 });
 
 const actionsToProps = dispatch => ({
-  onClose: () => dispatch(closeDrawer())
+  onClose: () => dispatch(closeDrawer()),
 });
 
 const NavDrawer = ({ open, onClose }) => (
-  <Drawer active={open}
-    type="right"
-    onOverlayClick={onClose}
-  >
+  <Drawer active={open} type="right" onOverlayClick={onClose}>
     <div style={{ margin: '0 10px' }}>
       <LanguagePicker />
       <SummaryModeSwitch />
@@ -40,7 +37,10 @@ const NavDrawer = ({ open, onClose }) => (
 
 NavDrawer.propTypes = {
   open: PropTypes.bool,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
 };
 
-export default connect(stateToProps, actionsToProps)(NavDrawer);
+export default connect(
+  stateToProps,
+  actionsToProps,
+)(NavDrawer);

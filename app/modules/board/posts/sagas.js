@@ -7,20 +7,24 @@ export function* onAddPost(action) {
   const user = yield select(getCurrentUser);
   const postId = yield call(uuid);
 
-  yield put(addPostSuccess({
-    id: postId,
-    postType: action.payload.postType,
-    content: action.payload.content,
-    user,
-    likes: [],
-    dislikes: []
-  }));
+  yield put(
+    addPostSuccess({
+      id: postId,
+      postType: action.payload.postType,
+      content: action.payload.content,
+      user,
+      likes: [],
+      dislikes: [],
+    }),
+  );
 }
 
 export function* onLike(action) {
   const user = yield select(getCurrentUser);
-  yield put(likeSuccess({
-    ...action.payload,
-    user
-  }));
+  yield put(
+    likeSuccess({
+      ...action.payload,
+      user,
+    }),
+  );
 }

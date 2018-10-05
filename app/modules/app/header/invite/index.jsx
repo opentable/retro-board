@@ -15,11 +15,11 @@ import { isInviteDialogOpen } from './selectors';
 const stateToProps = state => ({
   url: getCurrentUrl(state),
   showInvite: shouldDisplayDrawerButton(state),
-  dialogOpen: isInviteDialogOpen(state)
+  dialogOpen: isInviteDialogOpen(state),
 });
 
 const actionsToProps = dispatch => ({
-  toggle: () => dispatch(toggleInviteDialog())
+  toggle: () => dispatch(toggleInviteDialog()),
 });
 
 const Invite = ({ url, showInvite, dialogOpen, toggle, strings }) => {
@@ -29,18 +29,9 @@ const Invite = ({ url, showInvite, dialogOpen, toggle, strings }) => {
 
   return (
     <span>
-      <IconButton icon={icons.group_add}
-        onClick={toggle}
-        title={strings.inviteButton}
-        inverse
-      />
+      <IconButton icon={icons.group_add} onClick={toggle} title={strings.inviteButton} inverse />
 
-      <CopyDialog
-        url={url}
-        dialogOpen={dialogOpen}
-        toggle={toggle}
-        strings={strings.dialog}
-      />
+      <CopyDialog url={url} dialogOpen={dialogOpen} toggle={toggle} strings={strings.dialog} />
     </span>
   );
 };
@@ -52,24 +43,15 @@ const CopyDialog = ({ url, dialogOpen, toggle, strings }) => (
     onEscKeyDown={toggle}
     onOverlayClick={toggle}
     type="large"
-    actions={[
-      { label: 'Ok', onClick: toggle }
-    ]}
+    actions={[{ label: 'Ok', onClick: toggle }]}
   >
     <p>
-      {strings.text}:
-      <br />
+      {strings.text}:<br />
       <strong>{url}</strong>
     </p>
     <br />
     <Clipboard text={url}>
-      <Button
-        icon={icons.content_copy}
-        label={strings.copyButton}
-        flat
-        primary
-        accent
-      />
+      <Button icon={icons.content_copy} label={strings.copyButton} flat primary accent />
     </Clipboard>
   </Dialog>
 );
@@ -78,7 +60,7 @@ CopyDialog.propTypes = {
   url: PropTypes.string,
   dialogOpen: PropTypes.bool,
   toggle: PropTypes.func,
-  strings: PropTypes.object
+  strings: PropTypes.object,
 };
 
 Invite.propTypes = {
@@ -86,7 +68,7 @@ Invite.propTypes = {
   showInvite: PropTypes.bool,
   dialogOpen: PropTypes.bool,
   toggle: PropTypes.func,
-  strings: PropTypes.object
+  strings: PropTypes.object,
 };
 
 Invite.defaultProps = {
@@ -94,16 +76,18 @@ Invite.defaultProps = {
     inviteButton: 'Invite',
     dialog: {
       title: 'Invite people to your retrospective',
-      text: 'To invite people to your retrospected session, simply send them ' +
-                  'the following URL',
-      copyButton: 'Copy URL to Clipboard'
-    }
-  }
+      text: 'To invite people to your retrospected session, simply send them ' + 'the following URL',
+      copyButton: 'Copy URL to Clipboard',
+    },
+  },
 };
 
 const decorators = flow([
-  connect(stateToProps, actionsToProps),
-  translate('Invite')
+  connect(
+    stateToProps,
+    actionsToProps,
+  ),
+  translate('Invite'),
 ]);
 
 export default decorators(Invite);

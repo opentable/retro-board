@@ -1,10 +1,6 @@
 /* eslint max-len:0 */
 
-import systemUnderTest, {
-  LOGIN_SUCCESS,
-  LOGOUT,
-  CHANGE_LANGUAGE_SUCCESS
-} from '../state';
+import systemUnderTest, { LOGIN_SUCCESS, LOGOUT, CHANGE_LANGUAGE_SUCCESS } from '../state';
 
 describe('State - User', () => {
   let state;
@@ -23,13 +19,19 @@ describe('State - User', () => {
 
   it('Should replace the name of the user when login in', () => {
     state.name = 'foo';
-    state = systemUnderTest(state, { type: LOGIN_SUCCESS, payload: { name: 'bar' } });
+    state = systemUnderTest(state, {
+      type: LOGIN_SUCCESS,
+      payload: { name: 'bar' },
+    });
     expect(state.name).toBe('bar');
   });
 
   it('Should replace the language of the user when changing the language', () => {
     state.lang = 'fr';
-    state = systemUnderTest(state, { type: CHANGE_LANGUAGE_SUCCESS, payload: 'en' });
+    state = systemUnderTest(state, {
+      type: CHANGE_LANGUAGE_SUCCESS,
+      payload: 'en',
+    });
     expect(state.lang).toBe('en');
   });
 

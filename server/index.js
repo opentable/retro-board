@@ -7,19 +7,32 @@ import chalk from 'chalk';
 import moment from 'moment';
 import db from './db';
 
-import { RECEIVE_POST, RECEIVE_BOARD, RECEIVE_DELETE_POST, RECEIVE_LIKE, RECEIVE_EDIT_POST,
-  ADD_POST_SUCCESS, DELETE_POST, LIKE_SUCCESS, EDIT_POST,
-  RECEIVE_CLIENT_LIST, RECEIVE_SESSION_NAME, JOIN_SESSION,
-  RENAME_SESSION, LEAVE_SESSION,
-  LOGIN_SUCCESS } from './actions';
+import {
+  RECEIVE_POST,
+  RECEIVE_BOARD,
+  RECEIVE_DELETE_POST,
+  RECEIVE_LIKE,
+  RECEIVE_EDIT_POST,
+  ADD_POST_SUCCESS,
+  DELETE_POST,
+  LIKE_SUCCESS,
+  EDIT_POST,
+  RECEIVE_CLIENT_LIST,
+  RECEIVE_SESSION_NAME,
+  JOIN_SESSION,
+  RENAME_SESSION,
+  LEAVE_SESSION,
+  LOGIN_SUCCESS,
+} from './actions';
 
 const app = express();
 const httpServer = new http.Server(app);
 const io = socketIo(httpServer);
 const port = process.env.PORT || 8081;
-const htmlFile = process.env.NODE_ENV === 'production' ?
-  path.resolve(__dirname, '..', 'assets', 'index.html') :
-  path.resolve(__dirname, '..', 'content', 'index.html');
+const htmlFile =
+  process.env.NODE_ENV === 'production'
+    ? path.resolve(__dirname, '..', 'assets', 'index.html')
+    : path.resolve(__dirname, '..', 'content', 'index.html');
 const assetsFolder = path.resolve(__dirname, '..', 'assets');
 const staticFolder = path.resolve(__dirname, '..', 'static');
 
@@ -38,10 +51,7 @@ db().then(store => {
 
   const sendToAll = (socket, sessionId, action, data) => {
     console.log(`${d()}${g(' ==> ')} ${s(action)} ${gr(JSON.stringify(data))}`);
-    socket
-      .broadcast
-      .to(getRoom(sessionId))
-      .emit(action, data);
+    socket.broadcast.to(getRoom(sessionId)).emit(action, data);
   };
 
   const sendToSelf = (socket, action, data) => {
@@ -49,8 +59,7 @@ db().then(store => {
     socket.emit(action, data);
   };
 
-  const persist = session => store.set(session)
-    .catch(err => console.error(err));
+  const persist = session => store.set(session).catch(err => console.error(err));
 
   const sendClientList = (sessionId, socket) => {
     const room = io.nsps['/'].adapter.rooms[getRoom(sessionId)];
@@ -148,8 +157,7 @@ db().then(store => {
 
   io.on('connection', socket => {
     const ip = socket.handshake.headers['x-forwarded-for'] || socket.handshake.address.address;
-    console.log(d() + b(' Connection: ') +
-                        r('New user connected'), gr(socket.id), gr(ip));
+    console.log(d() + b(' Connection: ') + r('New user connected'), gr(socket.id), gr(ip));
 
     const actions = [
       { type: ADD_POST_SUCCESS, handler: receivePost },
@@ -159,15 +167,13 @@ db().then(store => {
       { type: LIKE_SUCCESS, handler: like },
       { type: EDIT_POST, handler: edit },
       { type: LOGIN_SUCCESS, handler: login },
-      { type: LEAVE_SESSION, handler: leave }];
+      { type: LEAVE_SESSION, handler: leave },
+    ];
 
     actions.forEach(action => {
       socket.on(action.type, data => {
-        console.log(d() + r(' <--  ') +
-                            s(action.type),
-        gr(JSON.stringify(data)));
-        const sid = action.type === LEAVE_SESSION ?
-          socket.sessionId : data.sessionId;
+        console.log(d() + r(' <--  ') + s(action.type), gr(JSON.stringify(data)));
+        const sid = action.type === LEAVE_SESSION ? socket.sessionId : data.sessionId;
         if (sid) {
           store.get(sid).then(session => {
             action.handler(session, data.payload, socket);

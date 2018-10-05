@@ -16,12 +16,12 @@ import style from './index.scss';
 
 const stateToProps = state => ({
   user: getCurrentUser(state),
-  currentLanguage: getCurrentLanguage(state)
+  currentLanguage: getCurrentLanguage(state),
 });
 
 const actionsToProps = dispatch => ({
   onLogin: user => dispatch(login(user)),
-  autoLogin: () => dispatch(autoLogin())
+  autoLogin: () => dispatch(autoLogin()),
 });
 
 class App extends Component {
@@ -38,9 +38,7 @@ class App extends Component {
         </Switch>
       );
     }
-    return (
-      <Login onLogin={this.props.onLogin} />
-    );
+    return <Login onLogin={this.props.onLogin} />;
   }
 
   render() {
@@ -49,9 +47,7 @@ class App extends Component {
         <Panel className={style.panel}>
           <Header />
           <Drawer />
-          <div className={style.content}>
-            { this.renderLogin() }
-          </div>
+          <div className={style.content}>{this.renderLogin()}</div>
         </Panel>
       </Layout>
     );
@@ -61,16 +57,19 @@ class App extends Component {
 App.propTypes = {
   user: PropTypes.string,
   onLogin: PropTypes.func,
-  autoLogin: PropTypes.func
+  autoLogin: PropTypes.func,
 };
 
 App.defaultTypes = {
   user: null,
-  onLogin: noop
+  onLogin: noop,
 };
 
 const decorators = flow([
-  connect(stateToProps, actionsToProps)
+  connect(
+    stateToProps,
+    actionsToProps,
+  ),
 ]);
 
 export default decorators(App);

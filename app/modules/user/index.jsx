@@ -12,6 +12,11 @@ import icons from 'constants/icons';
 import style from './index.scss';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.inputRef = React.createRef();
+  }
+
   render() {
     return (
       <div className={style.login}>
@@ -20,14 +25,15 @@ class Login extends Component {
           placeholder={this.props.strings.namePlaceholder}
           icon={icons.people}
           onEnter={this.props.onLogin}
-          ref="input"
+          ref={this.inputRef}
           maxLength={12}
         />
-        <Button label={this.props.strings.buttonLabel}
+        <Button
+          label={this.props.strings.buttonLabel}
           accent
           raised
           onClick={() => {
-            const text = this.refs.input.state.value;
+            const text = this.inputRef.current.state.value;
             if (text) {
               this.props.onLogin(text);
             }
@@ -40,19 +46,17 @@ class Login extends Component {
 
 Login.propTypes = {
   onLogin: PropTypes.func,
-  strings: PropTypes.object
+  strings: PropTypes.object,
 };
 
 Login.defaultProps = {
   onLogin: noop,
   strings: {
     namePlaceholder: 'Who are you exactly? Enter your name here',
-    buttonLabel: 'Let\'s start'
-  }
+    buttonLabel: 'Let\'s start',
+  },
 };
 
-const decorators = flow([
-  translate('Login')
-]);
+const decorators = flow([translate('Login')]);
 
 export default decorators(Login);

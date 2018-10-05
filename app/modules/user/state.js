@@ -7,28 +7,31 @@ export const LOGOUT = 'retrospected/user/logout';
 export const CHANGE_LANGUAGE = 'retrospected/user/language/change';
 export const CHANGE_LANGUAGE_SUCCESS = 'retrospected/user/language/change/success';
 
-export default function reducer(state = {
-  name: null,
-  lang: 'en'
-}, action) {
+export default function reducer(
+  state = {
+    name: null,
+    lang: 'en',
+  },
+  action,
+) {
   switch (action.type) {
-  case LOGIN_SUCCESS:
-    return {
-      ...state,
-      name: action.payload.name
-    };
-  case CHANGE_LANGUAGE_SUCCESS:
-    return {
-      ...state,
-      lang: action.payload
-    };
-  case LOGOUT:
-    return {
-      ...state,
-      name: null
-    };
-  default:
-    return state;
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        name: action.payload.name,
+      };
+    case CHANGE_LANGUAGE_SUCCESS:
+      return {
+        ...state,
+        lang: action.payload,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        name: null,
+      };
+    default:
+      return state;
   }
 }
 

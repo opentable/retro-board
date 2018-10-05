@@ -19,7 +19,7 @@ describe('Sagas - router', () => {
   });
 
   describe('When a user changes location to /session/xxx', () => {
-    const it = sagaHelper((onLocationChange({ payload: { pathname: '/session/xxx' } })));
+    const it = sagaHelper(onLocationChange({ payload: { pathname: '/session/xxx' } }));
 
     it('should NOT get the session ID', result => {
       expect(result).not.toEqual(select(getSessionId));
@@ -28,7 +28,7 @@ describe('Sagas - router', () => {
   });
 
   describe('When a user changes location to / and no session is running', () => {
-    const it = sagaHelper((onLocationChange({ payload: { pathname: '/' } })));
+    const it = sagaHelper(onLocationChange({ payload: { pathname: '/' } }));
 
     it('should get the session ID', result => {
       expect(result).toEqual(select(getSessionId));

@@ -11,7 +11,7 @@ import translate from 'i18n/Translate';
 import icons from 'constants/icons';
 
 const stateToProps = state => ({
-  languageInfo: getCurrentLanguageInfo(state)
+  languageInfo: getCurrentLanguageInfo(state),
 });
 
 const getGravatar = client => `https://www.gravatar.com/avatar/${md5(client)}?d=identicon`;
@@ -25,8 +25,8 @@ const SessionTile = ({ session, strings, languageInfo, onClick }) => {
   return (
     <ListItem
       avatar={getGravatar(name)}
-      caption={ name }
-      legend={ lastJoined }
+      caption={name}
+      legend={lastJoined}
       rightIcon={icons.open_in_new}
       onClick={onClick}
       selectable
@@ -34,12 +34,11 @@ const SessionTile = ({ session, strings, languageInfo, onClick }) => {
   );
 };
 
-
 SessionTile.propTypes = {
   session: PropTypes.object.isRequired,
   languageInfo: PropTypes.object,
   strings: PropTypes.object,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 SessionTile.defaultProps = {
@@ -47,13 +46,10 @@ SessionTile.defaultProps = {
   languageInfo: null,
   onClick: noop,
   strings: {
-    defaultSessionName: 'My Retrospective'
-  }
+    defaultSessionName: 'My Retrospective',
+  },
 };
 
-const decorators = flow([
-  connect(stateToProps),
-  translate('SessionName')
-]);
+const decorators = flow([connect(stateToProps), translate('SessionName')]);
 
 export default decorators(SessionTile);

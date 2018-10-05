@@ -1,7 +1,5 @@
 import getState from 'modules/__tests__/getState';
-import {
-  isInviteDialogOpen
-} from '../selectors';
+import { isInviteDialogOpen } from '../selectors';
 
 const state = getState();
 

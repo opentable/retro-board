@@ -8,11 +8,7 @@ export default () => (
     rel="noopener noreferrer"
     target="_blank"
   >
-        Fork me on
-    <img
-      style={{ width: 100, position: 'relative', top: 10 }}
-      src={githubLogo}
-      alt="GitHub"
-    />
+    Fork me on
+    <img style={{ width: 100, position: 'relative', top: 10 }} src={githubLogo} alt="GitHub" />
   </a>
 );

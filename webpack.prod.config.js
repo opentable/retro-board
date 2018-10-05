@@ -1,5 +1,5 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const config = require('./config');
@@ -10,6 +10,7 @@ const staticFolder = path.resolve(__dirname, 'assets');
 const momentFilter = languages.map(lang => lang.iso).join('|');
 
 module.exports = {
+  mode: 'production',
   entry: [
     './app/index.jsx'
   ],
@@ -25,7 +26,10 @@ module.exports = {
       path.resolve('./app'),
       'node_modules',
       path.resolve(__dirname, './node_modules')
-    ]
+    ],
+    alias: {
+      'react-toolbox': path.resolve(__dirname, 'node_modules', '@bionikspoon', 'react-toolbox')
+    }
   },
   module: {
     rules: [
@@ -36,18 +40,16 @@ module.exports = {
       { test: /\.jpg$/, loader: 'url-loader?limit=10000&mimetype=image/jpeg' },
       {
         test: /(\.scss)$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-            {
-              loader: 'sass-loader?sourceMap',
-              options: {
-                data: `@import "${path.resolve(__dirname, 'app/theme.scss')}";`
-              }
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          {
+            loader: 'sass-loader?sourceMap',
+            options: {
+              data: `@import "${path.resolve(__dirname, 'app/theme.scss')}";`
             }
-          ]
-        })
+          }
+        ]
       }
     ]
   },
@@ -60,7 +62,10 @@ module.exports = {
       inject: true,
       appVersion
     }),
-    new ExtractTextPlugin({ filename: `style.${appVersion}.css`, allChunks: true }),
+    new MiniCssExtractPlugin({
+      filename: `style.${appVersion}.css`,
+      chunkFilename: '[id].css'
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
       __DEVELOPMENT__: false,
@@ -70,11 +75,6 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       React: 'react'
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
     })
   ]
 };

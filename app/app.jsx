@@ -44,9 +44,7 @@ class Index extends React.Component {
     } else {
       component = (
         <div>
-          <Provider store={store}>
-            {routes}
-          </Provider>
+          <Provider store={store}>{routes}</Provider>
         </div>
       );
     }

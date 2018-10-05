@@ -9,33 +9,31 @@ import { leave } from 'modules/board/session/state';
 import icons from 'constants/icons';
 
 const actionsToProps = dispatch => ({
-  onClick: () => dispatch(leave())
+  onClick: () => dispatch(leave()),
 });
 
 const LeaveButton = ({ onClick, strings }) => (
-  <Button
-    label={strings.leave}
-    icon={icons.exit_to_app}
-    onClick={onClick}
-    accent
-  />
+  <Button label={strings.leave} icon={icons.exit_to_app} onClick={onClick} accent />
 );
 
 LeaveButton.propTypes = {
   onClick: PropTypes.func,
-  strings: PropTypes.object
+  strings: PropTypes.object,
 };
 
 LeaveButton.defaultProps = {
   onClick: noop,
   strings: {
-    leave: 'Leave'
-  }
+    leave: 'Leave',
+  },
 };
 
 const decorators = flow([
-  connect(null, actionsToProps),
-  translate('Header')
+  connect(
+    null,
+    actionsToProps,
+  ),
+  translate('Header'),
 ]);
 
 export default decorators(LeaveButton);

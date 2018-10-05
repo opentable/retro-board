@@ -9,37 +9,37 @@ import { getSummaryMode } from '../selectors';
 import { toggleSummaryMode } from '../state';
 
 const stateToProps = state => ({
-  enabled: getSummaryMode(state)
+  enabled: getSummaryMode(state),
 });
 
 const actionsToProps = dispatch => ({
-  onChange: () => dispatch(toggleSummaryMode())
+  onChange: () => dispatch(toggleSummaryMode()),
 });
 
 const SummaryModeSwitch = ({ enabled, onChange, strings }) => (
-  <Switch checked={enabled}
-    onChange={onChange}
-    label={strings.summaryMode}
-  />
+  <Switch checked={enabled} onChange={onChange} label={strings.summaryMode} />
 );
 
 SummaryModeSwitch.propTypes = {
   enabled: PropTypes.bool,
   onChange: PropTypes.func,
-  strings: PropTypes.object
+  strings: PropTypes.object,
 };
 
 SummaryModeSwitch.defaultProps = {
   enabled: false,
   onChange: noop,
   strings: {
-    summaryMode: 'Summary Mode'
-  }
+    summaryMode: 'Summary Mode',
+  },
 };
 
 const decorators = flow([
-  connect(stateToProps, actionsToProps),
-  translate('Header')
+  connect(
+    stateToProps,
+    actionsToProps,
+  ),
+  translate('Header'),
 ]);
 
 export default decorators(SummaryModeSwitch);

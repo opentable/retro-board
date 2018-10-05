@@ -8,11 +8,7 @@ import ls from 'local-storage';
 import find from 'lodash/find';
 import { getCurrentUser } from 'modules/user/selectors';
 import { getSessionId } from './selectors';
-import { joinSession,
-  createSessionSuccess,
-  receiveClientList,
-  renameSession,
-  loadPreviousSessions } from './state';
+import { joinSession, createSessionSuccess, receiveClientList, renameSession, loadPreviousSessions } from './state';
 
 export function* storeSessionToLocalStorage(currentUser, sessionId) {
   let savedSessions = ls.get('sessions');
@@ -27,7 +23,7 @@ export function* storeSessionToLocalStorage(currentUser, sessionId) {
   let savedSession = find(savedSessions[currentUser], session => session.id === sessionId);
   if (!savedSession) {
     savedSession = {
-      id: sessionId
+      id: sessionId,
     };
     savedSessions[currentUser].push(savedSession);
   }
@@ -43,10 +39,12 @@ export function* onAutoJoin(action) {
   const currentUser = yield select(getCurrentUser);
 
   if (sessionId && sessionId !== currentSession) {
-    yield put(joinSession({
-      sessionId,
-      user: currentUser
-    }));
+    yield put(
+      joinSession({
+        sessionId,
+        user: currentUser,
+      }),
+    );
     yield call(storeSessionToLocalStorage, currentUser, sessionId);
   }
 }
@@ -56,8 +54,7 @@ export function* onRenameSession(action) {
   const currentUser = yield select(getCurrentUser);
   let savedSessions = yield call(ls, 'sessions');
   savedSessions = savedSessions || {};
-  const savedSession = find(savedSessions[currentUser],
-    session => session.id === currentSession);
+  const savedSession = find(savedSessions[currentUser], session => session.id === currentSession);
   if (savedSession) {
     savedSession.name = action.payload;
     yield call(ls, 'sessions', savedSessions);
@@ -68,8 +65,7 @@ export function* onRenameSession(action) {
 export function* doLoadPreviousSessions() {
   const currentUser = yield select(getCurrentUser);
   const sessions = yield call(ls, 'sessions');
-  const userSessions = !!sessions &&
-            sessions.hasOwnProperty(currentUser) ? sessions[currentUser] : [];
+  const userSessions = !!sessions && sessions.hasOwnProperty(currentUser) ? sessions[currentUser] : [];
   yield put(loadPreviousSessions(userSessions));
 }
 
@@ -77,10 +73,19 @@ export function* onCreateSession(action) {
   const sessionId = yield call(shortid.generate);
   const sessionName = action.payload || null;
   const user = yield select(getCurrentUser);
-  yield put(createSessionSuccess({ sessionId }));
+  yield put(
+    createSessionSuccess({
+      sessionId,
+    }),
+  );
   yield call(storeSessionToLocalStorage, user, sessionId);
   yield put(renameSession(sessionName));
-  yield put(joinSession({ sessionId, user }));
+  yield put(
+    joinSession({
+      sessionId,
+      user,
+    }),
+  );
   yield put(receiveClientList([user]));
   yield put(push(`/session/${sessionId}`));
 }

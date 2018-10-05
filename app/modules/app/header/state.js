@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import invite from './invite/state';
 
 const reducer = combineReducers({
-  invite
+  invite,
 });
 
 export default reducer;

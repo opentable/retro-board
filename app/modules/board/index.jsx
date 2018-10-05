@@ -7,7 +7,7 @@ import Board from './posts';
 import { autoJoin } from './session/state';
 
 const actionsToProps = dispatch => ({
-  autoJoin: sessionId => dispatch(autoJoin(sessionId))
+  autoJoin: sessionId => dispatch(autoJoin(sessionId)),
 });
 
 class Main extends Component {
@@ -16,23 +16,24 @@ class Main extends Component {
   }
 
   render() {
-    return (
-      <Board />
-    );
+    return <Board />;
   }
 }
 
 Main.propTypes = {
   autoJoin: PropTypes.func,
-  match: PropTypes.object
+  match: PropTypes.object,
 };
 
 Main.defaultProps = {
-  autoJoin: noop
+  autoJoin: noop,
 };
 
 const decorators = flow([
-  connect(null, actionsToProps)
+  connect(
+    null,
+    actionsToProps,
+  ),
 ]);
 
 export default decorators(Main);

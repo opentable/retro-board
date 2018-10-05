@@ -7,7 +7,7 @@ import systemUnderTest, {
   LEAVE_SESSION,
   RENAME_SESSION,
   RECEIVE_SESSION_NAME,
-  LOAD_PREVIOUS_SESSIONS
+  LOAD_PREVIOUS_SESSIONS,
 } from '../state';
 
 describe('State - Session', () => {
@@ -34,18 +34,27 @@ describe('State - Session', () => {
   });
 
   it('Should set the session id when creating the session', () => {
-    state = systemUnderTest(state, { type: CREATE_SESSION_SUCCESS, payload: { sessionId: 123 } });
+    state = systemUnderTest(state, {
+      type: CREATE_SESSION_SUCCESS,
+      payload: { sessionId: 123 },
+    });
     expect(state.id).toEqual(123);
   });
 
   it('Should set the session id when joining the session', () => {
-    state = systemUnderTest(state, { type: JOIN_SESSION, payload: { sessionId: 123 } });
+    state = systemUnderTest(state, {
+      type: JOIN_SESSION,
+      payload: { sessionId: 123 },
+    });
     expect(state.id).toEqual(123);
   });
 
   it('Should populate and replace the client list when receiving it from the server', () => {
     state.clients = ['foo'];
-    state = systemUnderTest(state, { type: RECEIVE_CLIENT_LIST, payload: ['bar', 'bouh'] });
+    state = systemUnderTest(state, {
+      type: RECEIVE_CLIENT_LIST,
+      payload: ['bar', 'bouh'],
+    });
     expect(state.clients).toEqual(['bar', 'bouh']);
   });
 
@@ -67,13 +76,19 @@ describe('State - Session', () => {
 
   it('Should replace the name of the session when receiving a new name', () => {
     state.name = 'foo';
-    state = systemUnderTest(state, { type: RECEIVE_SESSION_NAME, payload: 'bar' });
+    state = systemUnderTest(state, {
+      type: RECEIVE_SESSION_NAME,
+      payload: 'bar',
+    });
     expect(state.name).toBe('bar');
   });
 
   it('Should populate and replace the previous sessions list after loading it', () => {
     state.previousSessions = ['foo'];
-    state = systemUnderTest(state, { type: LOAD_PREVIOUS_SESSIONS, payload: ['bar', 'bouh'] });
+    state = systemUnderTest(state, {
+      type: LOAD_PREVIOUS_SESSIONS,
+      payload: ['bar', 'bouh'],
+    });
     expect(state.previousSessions).toEqual(['bar', 'bouh']);
   });
 });

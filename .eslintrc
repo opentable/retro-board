@@ -1,41 +1,20 @@
  {
- "parser": "babel-eslint",
- "extends": "airbnb",
- "plugins": [
-    "jsx-a11y"
-  ],
-  "settings": {
-      "import/resolver": "webpack"
-  },
-  "rules": {
-      "indent": ["error", 2],
-      "react/jsx-indent": ["error", 2],
-      "react/jsx-first-prop-new-line": 0,
-      "react/require-default-props": 0,
-      "react/jsx-tag-spacing": [ 0, {
-        "closingSlash": "never",
-        "beforeSelfClosing": "always",
-        "afterOpening": "never"
-      }],
-      "jsx-a11y/aria-role": 0,
-      "jsx-a11y/img-has-alt": 0,
-      "jsx-a11y/img-redundant-alt": 0,
-      "jsx-a11y/href-no-hash": 0,
-      "react/jsx-curly-spacing": 0,
-      "no-console": 0,
-      "no-param-reassign": 0,
-      "comma-dangle": ["error", "never"],
-      "arrow-parens": 0,
-      "react/forbid-prop-types": 0,
-      "linebreak-style": 0
-  },
-  "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true,
-            "experimentalObjectRestSpread": true
-        }
-    },
-    "env": {
-        "jest": true
-    }
+     "parser": "babel-eslint",
+     "settings": {
+         "import/resolver": "webpack"
+     },
+     "rules": {
+         "quotes": [1, "single"],
+         "max-len": [1, 120]
+
+     },
+     "parserOptions": {
+         "ecmaFeatures": {
+             "jsx": true,
+             "experimentalObjectRestSpread": true
+         }
+     },
+     "env": {
+         "jest": true
+     }
  }

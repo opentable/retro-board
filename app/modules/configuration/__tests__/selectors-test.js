@@ -1,9 +1,5 @@
 import getState from 'modules/__tests__/getState';
-import {
-  getSummaryMode,
-  isDrawerOpen,
-  shouldDisplayDrawerButton
-} from '../selectors';
+import { getSummaryMode, isDrawerOpen, shouldDisplayDrawerButton } from '../selectors';
 
 const state = getState();
 

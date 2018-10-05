@@ -1,9 +1,5 @@
 import getState from 'modules/__tests__/getState';
-import {
-  getCurrentUser,
-  getCurrentLanguage,
-  getCurrentLanguageInfo
-} from '../selectors';
+import { getCurrentUser, getCurrentLanguage, getCurrentLanguageInfo } from '../selectors';
 
 const state = getState();
 

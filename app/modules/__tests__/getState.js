@@ -4,17 +4,14 @@ import createSagaMiddleware from 'redux-saga';
 import reducers from 'modules/state';
 import sagas from 'modules/sagas';
 import { loginSuccess, changeLanguage } from 'modules/user/state';
-import { createSessionSuccess,
+import {
+  createSessionSuccess,
   receiveClientList,
   renameSession,
-  loadPreviousSessions
+  loadPreviousSessions,
 } from 'modules/board/session/state';
-import { toggleSummaryMode,
-  openDrawer
-} from 'modules/configuration/state';
-import {
-  addPost
-} from 'modules/board/posts/state';
+import { toggleSummaryMode, openDrawer } from 'modules/configuration/state';
+import { addPost } from 'modules/board/posts/state';
 
 export const getStore = () => {
   const initialState = {};
@@ -39,11 +36,13 @@ export default () => {
   store.dispatch(createSessionSuccess({ sessionId: 'ABCD' }));
   store.dispatch(receiveClientList(['Zsolt', 'James', 'Stuart']));
   store.dispatch(renameSession('FT1.1 Retro'));
-  store.dispatch(loadPreviousSessions([
-    { name: 'Retro 1', lastJoin: moment('2014-04-19').unix() },
-    { name: 'Retro 2', lastJoin: moment('1952-04-24').unix() },
-    { name: 'Retro 3', lastJoin: moment('1982-11-01').unix() }
-  ]));
+  store.dispatch(
+    loadPreviousSessions([
+      { name: 'Retro 1', lastJoin: moment('2014-04-19').unix() },
+      { name: 'Retro 2', lastJoin: moment('1952-04-24').unix() },
+      { name: 'Retro 3', lastJoin: moment('1982-11-01').unix() },
+    ]),
+  );
   store.dispatch(toggleSummaryMode());
   store.dispatch(openDrawer());
   store.dispatch(addPost('well', 'Nicolas Sarkozy'));

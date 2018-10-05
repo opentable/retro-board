@@ -7,16 +7,11 @@ import Post from './Post';
 import PostAdd from './PostAdd';
 import style from './PostBoard.scss';
 
-const PostColumn = ({ currentUser, posts, type, icon, placeholder,
-  onAdd, onDelete, onLike, onUnlike, onEdit }) => (
+const PostColumn = ({ currentUser, posts, type, icon, placeholder, onAdd, onDelete, onLike, onUnlike, onEdit }) => (
   <div>
-    <PostAdd
-      onAdd={text => onAdd(type, text)}
-      placeholder={placeholder}
-      icon={icon}
-    />
+    <PostAdd onAdd={text => onAdd(type, text)} placeholder={placeholder} icon={icon} />
     <div className={style.columnContent}>
-      { posts.map((post, index) => (
+      {posts.map((post, index) => (
         <Post
           key={index} //eslint-disable-line
           currentUser={currentUser}
@@ -41,7 +36,7 @@ PostColumn.propTypes = {
   onDelete: PropTypes.func,
   onLike: PropTypes.func,
   onUnlike: PropTypes.func,
-  onEdit: PropTypes.func
+  onEdit: PropTypes.func,
 };
 
 PostColumn.defaultProps = {
@@ -54,7 +49,7 @@ PostColumn.defaultProps = {
   onDelete: noop,
   onLike: noop,
   onUnlike: noop,
-  onEdit: noop
+  onEdit: noop,
 };
 
 export default PostColumn;
