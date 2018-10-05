@@ -1,6 +1,6 @@
 {
   "name": "retro-board",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "An agile retrospective board - Powering www.retrospected.com",
   "main": "index.js",
   "engines": {
