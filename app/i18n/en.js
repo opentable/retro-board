@@ -16,6 +16,7 @@ export default {
     votes: 'votes',
     deleteButton: 'Delete',
     noContent: '(This post has no content)',
+    notLiked: 'Not liked',
   },
   PostBoard: {
     notWellQuestion: 'What could be improved?',
