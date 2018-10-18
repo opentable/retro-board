@@ -16,6 +16,7 @@ export default {
     votes: 'głosów',
     deleteButton: 'Usuń',
     noContent: '(Ten wpis nie ma zawartości)',
+    notLiked: 'Niepolubiony przez nikogo',
   },
   PostBoard: {
     notWellQuestion: 'Co można poprawić?',
