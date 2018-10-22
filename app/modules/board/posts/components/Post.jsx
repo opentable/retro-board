@@ -31,7 +31,7 @@ const renderDelete = (post, currentUser, strings, onDelete) => {
 const renderLike = (post, currentUser, strings, onLike) => {
   const votes = post.likes.length;
   const label = votes ? votes.toString() : '-';
-  const canUserLike = post.likes.indexOf(currentUser) === -1;
+  const canUserLike = post.likes.filter(el => el === currentUser).length < 3;
   const classNameFinal = classNames(style.like, canUserLike ? null : style.disabled);
   const likes = post.likes.reduce((acc, current) => {
     acc[current] = acc[current] + 1 || 1;
