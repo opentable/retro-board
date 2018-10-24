@@ -31,7 +31,8 @@ const renderDelete = (post, currentUser, strings, onDelete) => {
 const renderLike = (post, currentUser, strings, onLike) => {
   const votes = post.likes.length;
   const label = votes ? votes.toString() : '-';
-  const classNameFinal = classNames(style.like, null);
+  const canUserLike = post.likes.filter(el => el === currentUser).length < 3;
+  const classNameFinal = classNames(style.like, canUserLike ? null : style.disabled);
   const likes = post.likes.reduce((acc, current) => {
     acc[current] = acc[current] + 1 || 1;
     return acc;
@@ -60,8 +61,8 @@ const renderLike = (post, currentUser, strings, onLike) => {
       <Button
         icon={icons.thumb_up}
         label={label}
-        onClick={ () => onLike(post) }
-        raised
+        onClick={canUserLike ? () => onLike(post) : noop }
+        raised={canUserLike}
         className={classNameFinal}
         data-tip
         data-for={`${post.id}_likedByTooltip`}
@@ -112,7 +113,7 @@ const Post = ({ post, currentUser, onEdit, onLike, onUnlike, onDelete, strings }
         <div className={style.actions}>
           { renderLike(post, currentUser, strings, onLike) }
           { renderDislike(post, currentUser, onUnlike) }
-          {renderDelete(post, currentUser, strings, onDelete)}
+          { renderDelete(post, currentUser, strings, onDelete)}
         </div>
       </CardActions>
     </Card>
